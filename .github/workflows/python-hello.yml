@@ -1,29 +1,24 @@
-name: Hello World HTML Pipeline
+name: Hello World Python
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  build:
+  hello:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Get the code from GitHub
-      - name: Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Verify the HTML file exists
-      - name: Check HTML File
-        run: |
-          echo "Checking index.html..."
-          ls
-          cat index.html
-
-      # Step 3: Upload the HTML file as an artifact
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          name: hello-world-html
-          path: index.html
+          python-version: "3.12"
+
+      - name: Run Python script
+        run: |
+          python -c "print('Hello, World!')"
