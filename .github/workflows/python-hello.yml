@@ -1,4 +1,4 @@
-name: HTML CI Pipeline
+name: Hello World HTML Pipeline
 
 on:
   push:
@@ -10,30 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      # Checkout source code
+      # Step 1: Get the code from GitHub
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Display project files
-      - name: List Files
-        run: ls -R
-
-      # Validate HTML
-      - name: HTML Validation
+      # Step 2: Verify the HTML file exists
+      - name: Check HTML File
         run: |
-          echo "Checking HTML files..."
-          test -f index.html
+          echo "Checking index.html..."
+          ls
+          cat index.html
 
-      # Package website files
-      - name: Create Artifact
-        run: |
-          mkdir website
-          cp index.html styles.css script.js website/
-
-      # Upload artifact
-      - name: Upload Website
+      # Step 3: Upload the HTML file as an artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: html-website
-          path: website/
+          name: hello-world-html
+          path: index.html
