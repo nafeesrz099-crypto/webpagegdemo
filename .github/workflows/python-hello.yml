@@ -1,0 +1,39 @@
+name: HTML CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Checkout source code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Display project files
+      - name: List Files
+        run: ls -R
+
+      # Validate HTML
+      - name: HTML Validation
+        run: |
+          echo "Checking HTML files..."
+          test -f index.html
+
+      # Package website files
+      - name: Create Artifact
+        run: |
+          mkdir website
+          cp index.html styles.css script.js website/
+
+      # Upload artifact
+      - name: Upload Website
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-website
+          path: website/
